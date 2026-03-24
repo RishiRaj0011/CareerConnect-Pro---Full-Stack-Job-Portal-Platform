@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# Environment variables — never commit real credentials
+.env
+.env.local
+.env.production
+
+# Winston log files
+backend/logs/
+logs/
+
+# Build output
+frontend/dist/
+
+# OS
+.DS_Store
+Thumbs.db
