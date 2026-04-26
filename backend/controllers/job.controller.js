@@ -5,19 +5,21 @@ import { AppError, asyncHandler } from "../utils/appError.js";
 const COMPANY_PROJECTION = "name logo location";
 
 export const postJob = asyncHandler(async (req, res) => {
-    const { title, description, requirements, salary, location, jobType, experience, position, companyId } = req.body;
+    const { title, description, requirements, benefits, salary, location, jobType, experience, position, companyId, deadline } = req.body;
 
     const job = await Job.create({
         title,
         description,
         requirements: requirements.split(",").map((r) => r.trim()),
-        salary:        Number(salary),
+        benefits:     benefits ? benefits.split(",").map((b) => b.trim()) : [],
+        salary:       Number(salary),
         location,
         jobType,
         experienceLevel: experience,
         position,
-        company:    companyId,
-        created_by: req.id,
+        deadline:    deadline ? new Date(deadline) : undefined,
+        company:     companyId,
+        created_by:  req.id,
     });
 
     return res.status(201).json({ message: "New job created successfully.", job, success: true });

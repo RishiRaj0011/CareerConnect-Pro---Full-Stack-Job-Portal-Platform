@@ -28,8 +28,10 @@ export const getCompanyById = asyncHandler(async (req, res) => {
 });
 
 export const updateCompany = asyncHandler(async (req, res) => {
-    const { name, description, website, location } = req.body;
-    const updateData = { name, description, website, location };
+    const { name, description, website, location, foundedYear, companySize } = req.body;
+    const updateData = { name, description, website, location, foundedYear, companySize };
+    // Remove undefined keys so partial updates don't overwrite with undefined
+    Object.keys(updateData).forEach(k => updateData[k] === undefined && delete updateData[k]);
 
     // Logo upload is optional — only process if a file was sent
     if (req.file) {

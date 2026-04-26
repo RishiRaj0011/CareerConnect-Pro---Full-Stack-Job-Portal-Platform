@@ -78,22 +78,26 @@ export const getApplicants = asyncHandler(async (req, res) => {
 });
 
 export const updateStatus = asyncHandler(async (req, res) => {
-    const status = req.body.status.toLowerCase();
+    const { status, recruiterNote = "" } = req.body;
+    const normalizedStatus = status.toLowerCase();
 
     const application = await Application.findByIdAndUpdate(
         req.params.id,
-        { status },
+        {
+            status: normalizedStatus,
+            recruiterNote,
+            $push: { statusHistory: { status: normalizedStatus, note: recruiterNote } },
+        },
         { new: true, runValidators: true }
     ).populate("applicant", "fullname email").populate({ path: "job", select: "title" });
 
     if (!application) throw new AppError("Application not found.", 404);
 
-    // Non-blocking status update email
     sendStatusUpdateEmail(
         application.applicant.email,
         application.applicant.fullname,
         application.job.title,
-        status
+        normalizedStatus
     );
 
     return res.status(200).json({ message: "Status updated successfully.", success: true });
@@ -101,20 +105,21 @@ export const updateStatus = asyncHandler(async (req, res) => {
 
 // Admin dashboard — applications grouped by date for chart
 export const getApplicationStats = asyncHandler(async (req, res) => {
-    const stats = await Application.aggregate([
-        {
-            $group: {
-                _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
-                count: { $sum: 1 },
-            },
-        },
-        { $sort: { _id: 1 } },
-        { $limit: 30 }, // last 30 data points
+    const [stats, statusBreakdown, recentActivity] = await Promise.all([
+        Application.aggregate([
+            { $group: { _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } }, count: { $sum: 1 } } },
+            { $sort: { _id: 1 } },
+            { $limit: 30 },
+        ]),
+        Application.aggregate([
+            { $group: { _id: "$status", count: { $sum: 1 } } },
+        ]),
+        Application.find()
+            .sort({ createdAt: -1 })
+            .limit(8)
+            .populate({ path: "job", select: "title" })
+            .populate({ path: "applicant", select: "fullname profile.profilePhoto" })
+            .lean(),
     ]);
-
-    const statusBreakdown = await Application.aggregate([
-        { $group: { _id: "$status", count: { $sum: 1 } } },
-    ]);
-
-    return res.status(200).json({ success: true, stats, statusBreakdown });
+    return res.status(200).json({ success: true, stats, statusBreakdown, recentActivity });
 });
