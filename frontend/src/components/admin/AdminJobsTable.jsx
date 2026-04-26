@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import useGetAllAdminJobs from '@/hooks/useGetAllAdminJobs'
 
+import { TableRowSkeleton } from '../ui/skeletons'
+
 const AdminJobsTable = () => {
     const { data: allAdminJobs = [], isLoading } = useGetAllAdminJobs();
     const { searchJobByText } = useSelector(store => store.job);
@@ -20,8 +22,6 @@ const AdminJobsTable = () => {
         );
     }, [allAdminJobs, searchJobByText]);
 
-    if (isLoading) return <span className='text-gray-400 text-sm'>Loading jobs...</span>;
-
     return (
         <div>
             <Table>
@@ -35,7 +35,9 @@ const AdminJobsTable = () => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {filterJobs.map(job => (
+                    {isLoading
+                        ? Array.from({ length: 4 }).map((_, i) => <TableRowSkeleton key={i} cols={4} />)
+                        : filterJobs.map(job => (
                         <TableRow key={job._id}>
                             <TableCell>{job?.company?.name}</TableCell>
                             <TableCell>{job?.title}</TableCell>

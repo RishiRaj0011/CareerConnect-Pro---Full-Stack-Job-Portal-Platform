@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import getDataUri from "../utils/datauri.js";
 import cloudinary from "../utils/cloudinary.js";
 import { AppError, asyncHandler } from "../utils/appError.js";
+import { sendWelcomeEmail } from "../utils/emailService.js";
 
 export const register = asyncHandler(async (req, res) => {
     const { fullname, email, phoneNumber, password, role } = req.body;
@@ -35,6 +36,9 @@ export const register = asyncHandler(async (req, res) => {
         role,
         profile: { profilePhoto: cloudResponse.secure_url },
     });
+
+    // Non-blocking — email failure won't affect registration response
+    sendWelcomeEmail(email, fullname);
 
     return res.status(201).json({
         message: "Account created successfully.",

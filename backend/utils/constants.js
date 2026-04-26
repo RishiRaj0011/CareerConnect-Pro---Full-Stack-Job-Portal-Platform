@@ -1,7 +1,9 @@
 export const APPLICATION_STATUS = Object.freeze({
-    PENDING:  "pending",
-    ACCEPTED: "accepted",
-    REJECTED: "rejected",
+    PENDING:     "pending",
+    UNDER_REVIEW:"under_review",
+    SHORTLISTED: "shortlisted",
+    REJECTED:    "rejected",
+    HIRED:       "hired",
 });
 
 export const JOB_TYPE = Object.freeze({

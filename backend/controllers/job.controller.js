@@ -24,22 +24,24 @@ export const postJob = asyncHandler(async (req, res) => {
 });
 
 export const getAllJobs = asyncHandler(async (req, res) => {
-    const { keyword, location, jobType, page: qPage, limit: qLimit } = req.query;
+    const { keyword, location, jobType, salaryMin, salaryMax, experience, page: qPage, limit: qLimit } = req.query;
 
     const page  = Math.max(1, parseInt(qPage)  || 1);
     const limit = Math.min(50, parseInt(qLimit) || 10);
     const skip  = (page - 1) * limit;
 
-    // Build filter — each clause only added when the param is present
     const filter = {};
-
-    if (keyword) {
-        // $text uses the compound text index { title: "text", description: "text" }
-        // This is an index scan, not a full collection scan
-        filter.$text = { $search: keyword };
+    if (keyword)    filter.$text = { $search: keyword };
+    if (location)   filter.location = { $regex: location, $options: "i" };
+    if (jobType)    filter.jobType  = jobType;
+    if (salaryMin || salaryMax) {
+        filter.salary = {};
+        if (salaryMin) filter.salary.$gte = Number(salaryMin);
+        if (salaryMax) filter.salary.$lte = Number(salaryMax);
     }
-    if (location) filter.location = { $regex: location, $options: "i" };
-    if (jobType)  filter.jobType  = jobType;
+    if (experience !== undefined && experience !== "") {
+        filter.experienceLevel = { $lte: Number(experience) };
+    }
 
     const [jobs, total] = await Promise.all([
         Job.find(filter)
@@ -52,16 +54,8 @@ export const getAllJobs = asyncHandler(async (req, res) => {
     ]);
 
     return res.status(200).json({
-        success: true,
-        jobs,
-        pagination: {
-            total,
-            page,
-            limit,
-            totalPages:  Math.ceil(total / limit),
-            hasNextPage: page * limit < total,
-            hasPrevPage: page > 1,
-        },
+        success: true, jobs,
+        pagination: { total, page, limit, totalPages: Math.ceil(total / limit), hasNextPage: page * limit < total, hasPrevPage: page > 1 },
     });
 });
 

@@ -8,7 +8,7 @@ import axios from 'axios'
 import { getApiError } from '@/utils/apiError'
 import { useQueryClient } from '@tanstack/react-query'
 
-const SHORTLISTING_STATUS = ["Accepted", "Rejected"];
+const SHORTLISTING_STATUS = ["pending", "under_review", "shortlisted", "hired", "rejected"];
 
 const ApplicantsTable = ({ applications = [], isLoading, jobId }) => {
     const queryClient = useQueryClient();
