@@ -8,26 +8,20 @@ import axios from 'axios'
 import { COMPANY_API_END_POINT } from '@/utils/constant'
 import { toast } from 'sonner'
 import { getApiError } from '@/utils/apiError'
-import { useDispatch } from 'react-redux'
-import { setSingleCompany } from '@/redux/companySlice'
 
 const CompanyCreate = () => {
     const navigate = useNavigate();
     const [companyName, setCompanyName] = useState();
-    const dispatch = useDispatch();
+
     const registerNewCompany = async () => {
         try {
             const res = await axios.post(`${COMPANY_API_END_POINT}/register`, {companyName}, {
-                headers:{
-                    'Content-Type':'application/json'
-                },
-                withCredentials:true
+                headers: { 'Content-Type': 'application/json' },
+                withCredentials: true
             });
-            if(res?.data?.success){
-                dispatch(setSingleCompany(res.data.company));
+            if (res?.data?.success) {
                 toast.success(res.data.message);
-                const companyId = res?.data?.company?._id;
-                navigate(`/admin/companies/${companyId}`);
+                navigate(`/admin/companies/${res.data.company._id}`);
             }
         } catch (error) {
             toast.error(getApiError(error));

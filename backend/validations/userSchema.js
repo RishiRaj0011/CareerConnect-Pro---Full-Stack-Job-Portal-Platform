@@ -13,7 +13,7 @@ export const registerSchema = z.object({
         .regex(/[0-9]/, "Must contain one number")
         .regex(/[^a-zA-Z0-9]/, "Must contain one special character"),
     role: z.enum(roleValues, {
-        errorMap: () => ({ message: `Role must be one of: ${roleValues.join(", ")}` }),
+        error: () => ({ message: `Role must be one of: ${roleValues.join(", ")}` }),
     }),
 }).strict();
 
@@ -21,7 +21,7 @@ export const loginSchema = z.object({
     email: z.string().email("Invalid email"),
     password: z.string().min(1, "Password is required"),
     role: z.enum(roleValues, {
-        errorMap: () => ({ message: `Role must be one of: ${roleValues.join(", ")}` }),
+        error: () => ({ message: `Role must be one of: ${roleValues.join(", ")}` }),
     }),
 }).strict();
 

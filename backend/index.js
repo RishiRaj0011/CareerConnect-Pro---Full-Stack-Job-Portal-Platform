@@ -1,10 +1,10 @@
-// ── Env validation MUST run before any other import that reads process.env ──
+// env.js loads .env and validates all vars before anything else runs
 import "./utils/env.js";
 
+import path from "path";
 import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import dotenv from "dotenv";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import swaggerUi from "swagger-ui-express";
@@ -17,9 +17,7 @@ import companyRoute from "./routes/company.route.js";
 import jobRoute from "./routes/job.route.js";
 import applicationRoute from "./routes/application.route.js";
 import globalErrorHandler from "./middlewares/errorHandler.js";
-import path from "path";
 
-dotenv.config({ path: path.resolve("./.env") });
 connectDB();
 
 const app      = express();
