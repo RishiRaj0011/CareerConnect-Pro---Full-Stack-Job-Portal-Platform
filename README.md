@@ -72,7 +72,14 @@ Built to demonstrate production-level engineering: the backend uses dual-strateg
 ---
 
 ## 📸 Screenshots
-> Add screenshots manually after running the project locally.
+<img width="958" height="441" alt="Screenshot 2026-04-27 210028" src="https://github.com/user-attachments/assets/9232d146-3c89-4cbf-9fd5-ec311ffd261f" />
+<img width="960" height="442" alt="Screenshot 2026-04-27 210038" src="https://github.com/user-attachments/assets/c60def2e-8cd1-49c9-9972-3ef2a40bec2a" />
+<img width="960" height="439" alt="Screenshot 2026-04-27 210057" src="https://github.com/user-attachments/assets/a3bc1627-88eb-40cd-a48d-0b9212bf9262" />
+<img width="960" height="442" alt="Screenshot 2026-04-27 210124" src="https://github.com/user-attachments/assets/e381ca50-9174-48e6-b236-f2c4bcbe0cd3" />
+<img width="960" height="402" alt="Screenshot 2026-04-27 210132" src="https://github.com/user-attachments/assets/74f2ca72-1900-4b97-bcee-17b64612f695" />
+<img width="960" height="440" alt="Screenshot 2026-04-27 210145" src="https://github.com/user-attachments/assets/17f60fe9-b0d7-4f1e-9431-70f0c0f43e2f" />
+<img width="960" height="446" alt="Screenshot 2026-04-27 210200" src="https://github.com/user-attachments/assets/a52e08bd-505e-4e28-89f0-875664e3bb6d" />
+<img width="960" height="438" alt="Screenshot 2026-04-27 210308" src="https://github.com/user-attachments/assets/f73591aa-36ff-47cc-af4d-0dd7f0ff973d" />
 
 | Page | Description |
 |---|---|
