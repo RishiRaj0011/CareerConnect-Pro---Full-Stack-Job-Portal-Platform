@@ -72,6 +72,8 @@ Built to demonstrate production-level engineering: the backend uses dual-strateg
 ---
 
 ## 📸 Screenshots
+These screenshot are taken as i run the project and i have uploaded it to show you all about the project
+
 <img width="958" height="441" alt="Screenshot 2026-04-27 210028" src="https://github.com/user-attachments/assets/9232d146-3c89-4cbf-9fd5-ec311ffd261f" />
 <img width="960" height="442" alt="Screenshot 2026-04-27 210038" src="https://github.com/user-attachments/assets/c60def2e-8cd1-49c9-9972-3ef2a40bec2a" />
 <img width="960" height="439" alt="Screenshot 2026-04-27 210057" src="https://github.com/user-attachments/assets/a3bc1627-88eb-40cd-a48d-0b9212bf9262" />
@@ -80,6 +82,13 @@ Built to demonstrate production-level engineering: the backend uses dual-strateg
 <img width="960" height="440" alt="Screenshot 2026-04-27 210145" src="https://github.com/user-attachments/assets/17f60fe9-b0d7-4f1e-9431-70f0c0f43e2f" />
 <img width="960" height="446" alt="Screenshot 2026-04-27 210200" src="https://github.com/user-attachments/assets/a52e08bd-505e-4e28-89f0-875664e3bb6d" />
 <img width="960" height="438" alt="Screenshot 2026-04-27 210308" src="https://github.com/user-attachments/assets/f73591aa-36ff-47cc-af4d-0dd7f0ff973d" />
+
+Now according to current status of the project the data shown in mongodb 
+
+<img width="921" height="403" alt="Screenshot 2026-04-27 210914" src="https://github.com/user-attachments/assets/8819fac0-ecc3-42ff-8998-c2b9e1f7661a" />
+<img width="923" height="403" alt="Screenshot 2026-04-27 210926" src="https://github.com/user-attachments/assets/555560ef-e8e3-4daa-ae78-26bd29d0ffe2" />
+<img width="923" height="440" alt="Screenshot 2026-04-27 210950" src="https://github.com/user-attachments/assets/d78331ca-b675-429c-8c4a-c33a1f9f3241" />
+
 
 | Page | Description |
 |---|---|
